@@ -1,10 +1,17 @@
-```markdown
 # 🤖 AGENT COMMERCE OS (ACOS)
 > `~/ NomadDigita / pharos-agent-skill` ⚡ `WELCOME TO THE FRONTIER ............ ONLINE`
 
-An institutional-grade, highly composable suite of **5 Backend Skills** built for the **Pharos Skill-to-Agent Dual Cascade Hackathon (Phase 1)**. 
+```
+  Initializing NomadDigita.ACOS ............. OK
+  Loading Composable Modules ................ OK
+  Syncing Supabase DB Cluster ............... OK
+  Exposing MCP SSE Transports ............... OK
+  WELCOME TO THE FRONTIER ................... ONLINE
+```
 
-Designed to act as the foundational economic, directory, intelligence, and reputation layers for autonomous on-chain agents on the **Pharos Atlantic Testnet (Chain ID 688688)**. Exposes type-safe endpoints over both a high-performance **Fastify REST API** and the **Model Context Protocol (MCP)** Server-Sent Events (SSE) gateway.
+An institutional-grade, highly composable suite of 5 Composable Backend Skills built for the Pharos Skill-to-Agent Dual Cascade Hackathon (Phase 1). 
+
+Designed to act as the foundational economic, directory, intelligence, and reputation layers for autonomous on-chain agents on the Pharos Atlantic Testnet (Chain ID 688688). Exposes type-safe endpoints over both a high-performance Fastify REST API and the Model Context Protocol (MCP) Server-Sent Events (SSE) gateway.
 
 ---
 
@@ -12,7 +19,7 @@ Designed to act as the foundational economic, directory, intelligence, and reput
 
 * **Runtime Environment**: Node.js (v20+ / v24) & TypeScript (configured with strict `node16` module resolution)
 * **Framework**: Fastify (low-overhead, JSON-schema optimized with `@fastify/type-provider-typebox`)
-* **Persistence Layer**: Prisma Client mapped to a high-capacity **Supabase PostgreSQL** instance
+* **Persistence Layer**: Prisma Client mapped to a high-capacity Supabase PostgreSQL instance
 * **Blockchain Layer**: Viem (custom chain config for Pharos Atlantic Testnet)
 * **AI Engine**: Google Gemini API (sentiment & trend signal translation)
 * **Web3 Intelligence**: Moralis API (portfolio parsing & native holdings)
@@ -20,7 +27,7 @@ Designed to act as the foundational economic, directory, intelligence, and reput
 
 ---
 
-## ◆ The Manifest (The 5 Composable Skills)
+## ◆ The Manifest (The 5 Upgraded Composable Skills)
 
 ```
                        ┌───────────────────────────────┐
@@ -32,13 +39,13 @@ Designed to act as the foundational economic, directory, intelligence, and reput
    (Splits/Escrows)  (Rentals/Buying)   (Moralis Audit)  (Trust Ranks)  (X + Gemini AI)
 ```
 
-### 💸 Skill 1: Advanced Payment Execution Skill
-- **Multiple Payment Styles**: Supports direct transfers, locked temporal escrows, dynamic split-routing allocations, and recurring billing subscriptions.
-- **On-Chain confirmation Polling**: Automatically polls transaction receipts on Pharos Atlantic via the Viem public client, parsing logs to transition database states dynamically.
+### 💸 Skill 1: Upgraded Payment Execution Skill
+- **Advanced Payment Layouts**: Supports direct transfers, locked temporal escrows, dynamic split-routing allocations, and recurring billing subscriptions.
+- **On-Chain Confirmation Polling**: Automatically polls transaction receipts on Pharos Atlantic via the Viem public client, parsing logs to transition database states dynamically.
 
-### 🤖 Skill 2: Marketplace Registry Skill
+### 🤖 Skill 2: Marketplace Skill
 - **Agent Node Directory**: Allows autonomous nodes to register, announce, and update their operational capability tags.
-- **Priced Listings**: Publishes capability listings with clear transaction styles (`PURCHASE`, `RENTAL`, or `SUBSCRIPTION`).
+- **Priced Listings**: Publishes capability listings with clear transaction styles (PURCHASE, RENTAL, or SUBSCRIPTION) to establish an autonomous agent economy.
 
 ### 🔍 Skill 3: Wallet Intelligence Skill
 - **Portfolio Audits**: Queries the Moralis API to analyze wallet token distributions and native asset balances.
@@ -50,8 +57,39 @@ Designed to act as the foundational economic, directory, intelligence, and reput
 - **Community Rating Index**: Allows agents or users to submit 1-5 star feedback with commentary, calculating a weighted Bayesian average trust score.
 
 ### 📈 Skill 5: Social Intelligence Skill
-- **X API v2 Integration**: Uses your active Twitter Bearer Token to pull recent posts matching dynamic query terms (e.g. `Pharos`, `PROS`).
+- **X API v2 Integration**: Uses your active Twitter Bearer Token to pull recent posts matching dynamic query terms (e.g. Pharos, PROS).
 - **Semantic Caching**: Feeds raw tweets to Google's Gemini AI to synthesize market sentiment, trend keywords, and actionable trading recommendations.
+
+---
+
+## ◆ File System Configuration
+
+```text
+pharos-agent-skills/
+├── prisma/
+│   └── schema.prisma            # Dynamic Postgres Models mapping
+├── src/
+│   ├── index.ts                 # Bootstrapping, Swagger Engine, & Server Entrypoint
+│   ├── config/
+│   │   ├── db.ts                # Prisma Client Singleton
+│   │   ├── env.ts               # Typebox Environment Variable Validator
+│   │   └── providers.ts         # Viem Clients & Resend configurations
+│   ├── mcp/
+│   │   ├── server.ts            # MCP SSE Transport Engine
+│   │   └── tools.ts             # MCP Tool Prompt Declarations & Handlers
+│   ├── modules/
+│   │   ├── payment/             # Skill 1: Payments, Splits, & Escrows
+│   │   ├── registry/            # Skill 2: Onboardings & Pricing Listings
+│   │   ├── wallet/              # Skill 3: Moralis Portfolio Analytics
+│   │   ├── reputation/          # Skill 4: Dynamic Trust Ranks & Feedback
+│   │   └── social/              # Skill 5: Twitter API & Gemini AI
+│   └── utils/
+│       ├── crypto.ts            # EVM Signature Recovery Verification
+│       ├── logger.ts            # Pino-configured performance logger
+│       ├── sentry.ts            # Error aggregation setup
+│       └── telegram.ts          # Telegram Bot Event Dispatcher
+└── tsconfig.json                # Strict Node16 TS Compiler Configs
+```
 
 ---
 
@@ -65,7 +103,7 @@ cd Pharos-Agent-Skill
 cp .env.example .env
 ```
 
-Open `.env` and configure your API keys (ensure your Supabase database passwords are URL-encoded):
+Open .env and configure your API keys (ensure your Supabase database passwords are URL-encoded):
 ```ini
 NODE_ENV=development
 PORT=3000
@@ -83,20 +121,20 @@ TELEGRAM_BOT_TOKEN="YOUR_BOT_TOKEN"
 TELEGRAM_CHAT_ID="YOUR_CHAT_ID"
 RESEND_API_KEY="YOUR_RESEND_KEY"
 
-# Twitter API Configurations
+# Twitter/X API Integration
 TWITTER_BEARER_TOKEN="YOUR_BEARER_TOKEN"
 ```
 
 ### 2. Install Dependencies & Build Models
 Install your local node packages and push the database schema to your Supabase PostgreSQL cluster:
-```powershell
+```bash
 npm install
 npx prisma generate
 npx prisma db push
 ```
 
 ### 3. Run Local Server
-```powershell
+```bash
 npm run dev
 ```
 
@@ -106,28 +144,31 @@ npm run dev
 
 Our Agent Commerce OS is deployed 24/7 autonomously in the cloud on Render:
 
-* **Healthcheck Entrypoint**: [https://pharos-agent-skills.onrender.com/health](https://pharos-agent-skills.onrender.com/health)
-* **Interactive OpenAPI Specification**: [https://pharos-agent-skills.onrender.com/documentation](https://pharos-agent-skills.onrender.com/documentation)
-* **MCP SSE Server Gateway**: [https://pharos-agent-skills.onrender.com/mcp/sse](https://pharos-agent-skills.onrender.com/mcp/sse)
-
----
-`~ build with passion. ship without permission.`
-```
+* **Healthcheck Entrypoint**: https://pharos-agent-skills.onrender.com/health
+* **Interactive OpenAPI Specification**: https://pharos-agent-skills.onrender.com/documentation
+* **MCP SSE Server Gateway**: https://pharos-agent-skills.onrender.com/mcp/sse
 
 ---
 
-### Sandbox Deep-Dive Testing Guide (All 5 Skills)
+## ◆ Operational Testing Flight Plan
 
-To test each of your newly implemented/upgraded skills inside the Swagger UI (`http://localhost:3000/documentation` or your live Render URL), use these raw JSON payloads and curl commands:
+To test each of your newly implemented skills inside the interactive Swagger UI panel, use these raw JSON payloads:
 
----
+### 🤖 Skill 1: Agent Node Onboarding
+- **Endpoint**: POST /api/v1/registry/agents
+- **Payload**:
+  ```json
+  {
+    "address": "0x90F8bf6A479f320ced073E1412751d823802B714",
+    "name": "OsCommerce Live Agent Node",
+    "capabilities": ["payment-processing", "product-catalog-sync", "agent-escrow"]
+  }
+  ```
+- **Action**: Click execute. Shows the live database entry with your permanent id UUID and triggers the Telegram Bot alert.
 
-#### 💸 Skill 1: Payment Execution (Split Payment & Subscription)
-
-To test creating a split-route payment intent distributing the total funds across two destination wallets (60/40 ratio):
-
-* **Endpoint**: `POST /api/v1/payments/intent`
-* **JSON Request Body**:
+### 💸 Skill 2: Advanced Payment Execution (Split-Payment Intent)
+- **Endpoint**: POST /api/v1/payments/intent
+- **Payload**:
   ```json
   {
     "senderAddress": "0x90F8bf6A479f320ced073E1412751d823802B714",
@@ -146,90 +187,39 @@ To test creating a split-route payment intent distributing the total funds acros
     ]
   }
   ```
-* **Testing Command (cURL)**:
-  ```bash
-  curl -X POST "http://localhost:3000/api/v1/payments/intent" \
-       -H "Content-Type: application/json" \
-       -d '{"senderAddress":"0x90F8bf6A479f320ced073E1412751d823802B714","recipientAddress":"0x1234567890123456789012345678901234567890","amount":"0.05","type":"SPLIT","splitRecipients":[{"address":"0xfe3b557e8fb62b89f4916b721be55ceb828dbd73","percentage":60},{"address":"0xf916b721be55ceb828dbd73fe3b557e8fb62b89f","percentage":40}]}'
-  ```
-* **Expected Result**: Returns a `201 Created` status with the database payload and triggers the **Advanced Payment Intent Generated** Telegram alert.
+- **Action**: Generates the payment intent splitting allocations cleanly 60/40, logged on Supabase.
 
----
-
-#### 🤖 Skill 2: Marketplace Skill (Listing Purchases/Rentals)
-
-First, register an agent and use its generated `id` (e.g. `16363ad1-0815-470d-9e65-819c91fab990`) to create a subscription-style service listing:
-
-* **Endpoint**: `POST /api/v1/registry/listings`
-* **JSON Request Body**:
-  ```json
-  {
-    "agentId": "REPLACE_WITH_YOUR_REGISTERED_AGENT_UUID",
-    "title": "Autonomous Sentiment Predictor",
-    "description": "Continuous on-chain market sentiment analysis with daily Qwen summary updates",
-    "priceUnit": "PROS",
-    "priceAmount": "0.15",
-    "type": "SUBSCRIPTION",
-    "billingInterval": "MONTHLY"
-  }
-  ```
-* **Expected Result**: Publishes the priced capability to the directory, making it discoverable for other agents via `/api/v1/registry/listings`.
-
----
-
-#### 🔍 Skill 3: Wallet Intelligence Skill
-
-To perform a portfolio composition, whale classification, and risk check on any EVM address:
-
-* **Endpoint**: `POST /api/v1/wallet/analyze`
-* **JSON Request Body**:
+### 🔍 Skill 3: Wallet Intelligence Audits
+- **Endpoint**: POST /api/v1/wallet/analyze
+- **Payload**:
   ```json
   {
     "address": "0x90F8bf6A479f320ced073E1412751d823802B714"
   }
   ```
-* **Testing Command (cURL)**:
-  ```bash
-  curl -X POST "http://localhost:3000/api/v1/wallet/analyze" \
-       -H "Content-Type: application/json" \
-       -d '{"address":"0x90F8bf6A479f320ced073E1412751d823802B714"}'
-  ```
-* **Expected Result**: Returns the wallet balance, whale status (`true/false`), spam-token risk flags, and caches the report inside your `WalletAnalysis` table.
+- **Action**: Queries Moralis, checks native balances, spam contracts, flags whale designations, and caches results in PostgreSQL.
 
----
-
-#### 🛡️ Skill 4: Reputation & Trust Rank Skill
-
-To submit rated community feedback for an agent, triggering an automatic trust score recalculation:
-
-* **Endpoint**: `POST /api/v1/reputation/feedback`
-* **JSON Request Body**:
+### 🛡️ Skill 4: Reputation & Trust Rank Recalculations
+- **Endpoint**: POST /api/v1/reputation/feedback
+- **Payload** (Paste the Agent ID UUID copied from Skill 1):
   ```json
   {
     "agentId": "REPLACE_WITH_YOUR_REGISTERED_AGENT_UUID",
     "rating": 5,
-    "comment": "Outstanding processing speed and reliable payment settle verifications!"
+    "comment": "Outstanding processing speed and reliable payment verification!"
   }
   ```
-* **Expected Result**: Recalculates the agent's reputation score and appends the comment log securely inside Supabase.
+- **Action**: Submits review, recalculates overall trust score average, and commits to the database.
 
----
-
-#### 📈 Skill 5: Social Intelligence Skill (Twitter + Gemini AI)
-
-To query real-time tweets for a keyword, summarize them using Gemini, and output actionable trading signals:
-
-* **Endpoint**: `POST /api/v1/social/trends`
-* **JSON Request Body**:
+### 📈 Skill 5: Social Trends & AI Market Recommendations
+- **Endpoint**: POST /api/v1/social/trends
+- **Payload**:
   ```json
   {
     "query": "Pharos"
   }
   ```
-* **Testing Command (cURL)**:
-  ```bash
-  curl -X POST "http://localhost:3000/api/v1/social/trends" \
-       -H "Content-Type: application/json" \
-       -d '{"query":"Pharos"}'
-  ```
-* **Expected Result**: Reaches Google Gemini with live Twitter posts, producing a structured JSON analysis of current social trend sentiments.
+- **Action**: Connects to the Twitter/X API using your bearer token, translates sentiment via Gemini AI, and outputs signals and trading recommendations.
+
+---
+`~ build with passion. ship without permission.`

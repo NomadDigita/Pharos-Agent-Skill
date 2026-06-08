@@ -41,13 +41,9 @@ async function bootstrap() {
         title: 'Pharos Agent Skills API',
         description: 'Production-ready payment execution and marketplace capability registry skills for autonomous agents.',
         version: '1.0.0'
-      },
-      servers: [
-        {
-          url: `http://localhost:${env.PORT}`, // Explicitly target localhost to prevent CORS browser blocks
-          description: 'Local Development Server'
-        }
-      ]
+      }
+      // Removing the hardcoded servers block forces Swagger to use relative paths.
+      // This makes it work flawlessly on both localhost AND your live Render website!
     }
   });
 

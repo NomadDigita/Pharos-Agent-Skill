@@ -6,12 +6,16 @@ dotenv.config();
 
 const EnvSchema = Type.Object({
   NODE_ENV: Type.Union([Type.Literal('development'), Type.Literal('production'), Type.Literal('test')], { default: 'development' }),
-  PORT: Type.Transform(Type.String({ default: '3000' })).Decode(v => parseInt(v, 10)).Encode(v => String(v)),
+  PORT: Type.Transform(Type.String({ default: '3000' }))
+    .Decode((v: string): number => parseInt(v, 10))
+    .Encode((v: number): string => String(v)),
   HOST: Type.String({ default: '0.0.0.0' }),
   DATABASE_URL: Type.String(),
   DIRECT_DATABASE_URL: Type.String(),
   PHAROS_RPC_URL: Type.String(),
-  PHAROS_CHAIN_ID: Type.Transform(Type.String()).Decode(v => parseInt(v, 10)).Encode(v => String(v)),
+  PHAROS_CHAIN_ID: Type.Transform(Type.String())
+    .Decode((v: string): number => parseInt(v, 10))
+    .Encode((v: number): string => String(v)),
   GEMINI_API_KEY: Type.Optional(Type.String()),
   QWEN_API_KEY: Type.Optional(Type.String()),
   PRIVY_APP_ID: Type.Optional(Type.String()),

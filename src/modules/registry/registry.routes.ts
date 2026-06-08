@@ -13,10 +13,7 @@ export async function registryRoutes(fastify: FastifyInstance) {
     schema: {
       description: 'Upserts dynamic agent capability descriptors and network service endpoints',
       tags: ['Registry'],
-      body: RegisterAgentSchema,
-      response: {
-        201: Type.Any()
-      }
+      body: RegisterAgentSchema
     }
   }, async (request, reply) => {
     const agent = await service.registerAgent(request.body);
@@ -28,10 +25,7 @@ export async function registryRoutes(fastify: FastifyInstance) {
     schema: {
       description: 'Publishes a priced capability listing onto the global registry',
       tags: ['Registry'],
-      body: CreateListingSchema,
-      response: {
-        201: Type.Any()
-      }
+      body: CreateListingSchema
     }
   }, async (request, reply) => {
     const listing = await service.createListing(request.body);
@@ -45,10 +39,7 @@ export async function registryRoutes(fastify: FastifyInstance) {
       tags: ['Registry'],
       querystring: Type.Object({
         capability: Type.String()
-      }),
-      response: {
-        200: Type.Any()
-      }
+      })
     }
   }, async (request, reply) => {
     const agents = await service.searchAgents(request.query.capability);
@@ -59,10 +50,7 @@ export async function registryRoutes(fastify: FastifyInstance) {
   provider.get('/listings', {
     schema: {
       description: 'Fetches all active payable service listings on the marketplace',
-      tags: ['Registry'],
-      response: {
-        200: Type.Any()
-      }
+      tags: ['Registry']
     }
   }, async (request, reply) => {
     const listings = await service.getActiveListings();

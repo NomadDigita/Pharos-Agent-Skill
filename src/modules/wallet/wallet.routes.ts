@@ -2,7 +2,6 @@ import { FastifyInstance } from 'fastify';
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import { WalletIntelligenceService } from './wallet.service';
 import { AnalyzeWalletSchema } from './wallet.schema';
-import { Type } from '@sinclair/typebox';
 
 export async function walletRoutes(fastify: FastifyInstance) {
   const provider = fastify.withTypeProvider<TypeBoxTypeProvider>();
@@ -13,10 +12,7 @@ export async function walletRoutes(fastify: FastifyInstance) {
     schema: {
       description: 'Audit any EVM wallet portfolio, detect whale flags, calculate estimated PnL, and analyze spam risk properties',
       tags: ['Wallet Intelligence'],
-      body: AnalyzeWalletSchema,
-      response: {
-        200: Type.Any()
-      }
+      body: AnalyzeWalletSchema
     }
   }, async (request, reply) => {
     const analysis = await service.analyzeWallet(request.body.address);

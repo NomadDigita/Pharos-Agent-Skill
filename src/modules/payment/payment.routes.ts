@@ -13,10 +13,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
     schema: {
       description: 'Generates a payment tracking intent record prior to on-chain signing and broadcast',
       tags: ['Payments'],
-      body: CreatePaymentIntentSchema,
-      response: {
-        201: Type.Any()
-      }
+      body: CreatePaymentIntentSchema
     }
   }, async (request, reply) => {
     const payment = await service.createPaymentIntent(request.body);
@@ -28,10 +25,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
     schema: {
       description: 'Polls the Pharos Testnet RPC node to verify block confirmation and transaction logs of the given hash',
       tags: ['Payments'],
-      body: BroadcastPaymentSchema,
-      response: {
-        200: Type.Any()
-      }
+      body: BroadcastPaymentSchema
     }
   }, async (request, reply) => {
     const payment = await service.confirmPayment(request.body);
@@ -45,10 +39,7 @@ export async function paymentRoutes(fastify: FastifyInstance) {
       tags: ['Payments'],
       params: Type.Object({
         id: Type.String({ format: 'uuid' })
-      }),
-      response: {
-        200: Type.Any()
-      }
+      })
     }
   }, async (request, reply) => {
     const payment = await service.getPaymentStatus(request.params.id);

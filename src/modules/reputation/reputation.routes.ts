@@ -13,10 +13,7 @@ export async function reputationRoutes(fastify: FastifyInstance) {
     schema: {
       description: 'Submit rated trust feedback for an agent, automatically triggering weighted trustScore recalculations',
       tags: ['Reputation'],
-      body: SubmitFeedbackSchema,
-      response: {
-        200: Type.Any()
-      }
+      body: SubmitFeedbackSchema
     }
   }, async (request, reply) => {
     const profile = await service.submitFeedback(request.body);
@@ -30,10 +27,7 @@ export async function reputationRoutes(fastify: FastifyInstance) {
       tags: ['Reputation'],
       params: Type.Object({
         agentId: Type.String({ format: 'uuid' })
-      }),
-      response: {
-        200: Type.Any()
-      }
+      })
     }
   }, async (request, reply) => {
     const profile = await service.getReputation(request.params.agentId);
@@ -47,10 +41,7 @@ export async function reputationRoutes(fastify: FastifyInstance) {
       tags: ['Reputation'],
       params: Type.Object({
         agentId: Type.String({ format: 'uuid' })
-      }),
-      response: {
-        200: Type.Any()
-      }
+      })
     }
   }, async (request, reply) => {
     const profile = await service.syncTransactionReputation(request.params.agentId);

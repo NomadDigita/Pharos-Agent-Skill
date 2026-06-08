@@ -1,0 +1,130 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum PaymentStatus {
+  PENDING_SIGNATURE
+  BROADCASTED
+  CONFIRMED
+  ESCROW_LOCKED
+  ESCROW_RELEASED
+  REFUNDED
+  FAILED
+}
+
+enum PaymentType {
+  DIRECT
+  ESCROW
+  SPLIT
+  SUBSCRIPTION
+}
+
+enum ListingStatus {
+  ACTIVE
+  SUSPENDED
+  DEPRECATED
+}
+
+enum ListingType {
+  PURCHASE
+  RENTAL
+  SUBSCRIPTION
+}
+
+model AgentNode {
+  id           String               @id @default(uuid())
+  address      String               @unique
+  name         String
+  description  String?
+  capabilities Json
+  endpoint     String?
+  status       String               @default("ACTIVE")
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  listings     MarketplaceListing[]
+  reputation   ReputationProfile?
+}
+
+model MarketplaceListing {
+  id              String             @id @default(uuid())
+  agentId         String
+  agent           AgentNode          @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  title           String
+  description     String
+  priceUnit       String             // e.g., "PROS", "USDT"
+  priceAmount     Decimal            @db.Decimal(36, 18)
+  type            ListingType        @default(PURCHASE)
+  billingInterval String?            // e.g., "WEEKLY", "MONTHLY" (for subscriptions)
+  status          ListingStatus      @default(ACTIVE)
+  metadata        Json?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  payments        PaymentExecution[]
+}
+
+model PaymentExecution {
+  id               String              @id @default(uuid())
+  listingId        String?
+  listing          MarketplaceListing? @relation(fields: [listingId], references: [id], onDelete: SetNull)
+  senderAddress    String
+  recipientAddress String
+  amount           Decimal             @db.Decimal(36, 18)
+  tokenAddress     String?
+  txHash           String?             @unique
+  status           PaymentStatus       @default(PENDING_SIGNATURE)
+  type             PaymentType         @default(DIRECT)
+  
+  // Advanced splits and subscription configurations
+  splitRecipients         Json?        // Array of { address: string, percentage: number }
+  subscriptionNextBilling DateTime?
+  subscriptionInterval    String?      // e.g., "MONTHLY"
+  
+  escrowReleaseKey String?
+  expiresAt        DateTime?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  auditLogs        AuditLog[]
+
+  @@index([senderAddress])
+  @@index([recipientAddress])
+}
+
+model ReputationProfile {
+  id               String    @id @default(uuid())
+  agentId          String    @unique
+  agent            AgentNode @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  trustScore       Decimal   @default(100.0) @db.Decimal(5, 2) // 0.00 to 100.00
+  totalPayments    Int       @default(0)
+  successfulPayments Int     @default(0)
+  failedPayments     Int     @default(0)
+  communityFeedback  Json?     // Stores array of reviews or trust votes
+  updatedAt        DateTime  @updatedAt
+}
+
+model WalletAnalysis {
+  id            String   @id @default(uuid())
+  address       String   @unique
+  totalBalance  Decimal  @db.Decimal(36, 18)
+  estimatedPnL  Decimal  @default(0.0) @db.Decimal(36, 18)
+  isWhale       Boolean  @default(false)
+  isSuspicious  Boolean  @default(false)
+  analysisData  Json?    // Stores token distributions and behavioral tags
+  updatedAt     DateTime @updatedAt
+
+  @@index([address])
+}
+
+model AuditLog {
+  id         String            @id @default(uuid())
+  paymentId  String?
+  payment    PaymentExecution? @relation(fields: [paymentId], references: [id], onDelete: Cascade)
+  action     String
+  payload    Json?
+  timestamp  DateTime          @default(now())
+}

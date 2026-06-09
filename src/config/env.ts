@@ -25,6 +25,7 @@ const EnvSchema = Type.Object({
   TELEGRAM_BOT_TOKEN: Type.Optional(Type.String()),
   RESEND_API_KEY: Type.Optional(Type.String()),
   SENTRY_DSN: Type.Optional(Type.String()),
+  PUBLIC_URL: Type.Optional(Type.String()), // Your live Render web service URL
   
   // Twitter API
   TWITTER_ACCESS_TOKEN: Type.Optional(Type.String()),

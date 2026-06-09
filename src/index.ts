@@ -13,6 +13,24 @@ import { reputationRoutes } from './modules/reputation/reputation.routes';
 import { socialRoutes } from './modules/social/social.routes';
 import { registerMCPEndpoints } from './mcp/server';
 
+/**
+ * Background loop to ping the public healthcheck URL every 10 minutes.
+ * This prevents Render's free tier from sleeping/spinning down.
+ */
+function startKeepAliveLoop() {
+  const targetHost = env.PUBLIC_URL || `http://localhost:${env.PORT}`;
+  logger.info(`⏱️  Starting autonomous Keep-Alive loop targeting: ${targetHost}/health`);
+
+  setInterval(async () => {
+    try {
+      const response = await fetch(`${targetHost}/health`);
+      logger.debug({ status: response.status }, 'Autonomous Keep-Alive ping executed');
+    } catch (err: any) {
+      logger.error({ error: err.message || err }, 'Autonomous Keep-Alive ping failed');
+    }
+  }, 10 * 60 * 1000); // Trigger every 10 minutes
+}
+
 async function bootstrap() {
   // 1. Initialize Telemetry and Monitoring
   initSentry();
@@ -42,8 +60,6 @@ async function bootstrap() {
         description: 'Production-ready payment execution and marketplace capability registry skills for autonomous agents.',
         version: '1.0.0'
       }
-      // Removing the hardcoded servers block forces Swagger to use relative paths.
-      // This makes it work flawlessly on both localhost AND your live Render website!
     }
   });
 
@@ -76,6 +92,9 @@ async function bootstrap() {
     await server.listen({ port: Number(env.PORT), host: env.HOST });
     logger.info(`🚀 Fastify Agent Server listening on http://${env.HOST}:${env.PORT}`);
     logger.info(`📖 Interactive API Specifications available at http://${env.HOST}:${env.PORT}/documentation`);
+    
+    // Start the keep-alive loop after a successful port listen
+    startKeepAliveLoop();
   } catch (err) {
     logger.error(err, 'Failed to boot Fastify server');
     process.exit(1);

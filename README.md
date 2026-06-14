@@ -1,17 +1,10 @@
 # 🤖 AGENT COMMERCE OS (ACOS)
-> `~/ NomadDigita / pharos-agent-skill` ⚡ `WELCOME TO THE FRONTIER ............ ONLINE`
 
-```
-  Initializing NomadDigita.ACOS ............. OK
-  Loading Composable Modules ................ OK
-  Syncing Supabase DB Cluster ............... OK
-  Exposing MCP SSE Transports ............... OK
-  WELCOME TO THE FRONTIER ................... ONLINE
-```
-
-An institutional-grade, highly composable suite of 5 Composable Backend Skills built for the Pharos Skill-to-Agent Dual Cascade Hackathon (Phase 1). 
+### An institutional-grade, highly composable suite of 5 Composable Backend Skills built for the Pharos Skill-to-Agent Dual Cascade Hackathon (Phase 1). 
 
 Designed to act as the foundational economic, directory, intelligence, and reputation layers for autonomous on-chain agents on the Pharos Atlantic Testnet (Chain ID 688688). Exposes type-safe endpoints over both a high-performance Fastify REST API and the Model Context Protocol (MCP) Server-Sent Events (SSE) gateway.
+
+<img width="1254" height="1254" alt="photo_2026-06-14_11-35-18" src="https://github.com/user-attachments/assets/667fd3fb-8a36-438c-890a-5f07d156ab62" />
 
 ---
 

@@ -20,7 +20,7 @@
     "@sinclair/typebox": "^0.32.31",
     "dotenv": "^16.4.5",
     "ethers": "^6.12.1",
-    "fastify": "^4.27.0",
+    "fastify": "^5.8.5",
     "pino": "^9.1.0",
     "pino-pretty": "^11.1.0",
     "resend": "^3.2.0",

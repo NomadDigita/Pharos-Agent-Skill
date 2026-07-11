@@ -19,12 +19,12 @@
     "@prisma/client": "^5.14.0",
     "@sinclair/typebox": "^0.32.31",
     "dotenv": "^16.4.5",
-    "ethers": "^6.12.1",
+    "ethers": "^6.17.0",
     "fastify": "^4.27.0",
     "pino": "^9.1.0",
     "pino-pretty": "^11.1.0",
     "resend": "^3.2.0",
-    "viem": "^2.13.3"
+    "viem": "^2.55.0"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
